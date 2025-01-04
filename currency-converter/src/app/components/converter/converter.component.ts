@@ -1,5 +1,5 @@
 import { Component, signal, Signal } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Conversion } from '../../models/conversion';
 import { CurrencyService } from '../../services/currency.service';
 
@@ -14,9 +14,9 @@ import { CurrencyService } from '../../services/currency.service';
 })
 export class ConverterComponent {
   form = new FormGroup({
-    amount: new FormControl(0),
-    from: new FormControl('USD'),
-    to: new FormControl('EUR'),
+    amount: new FormControl<number | null>(null, [Validators.required, Validators.min(1)]),
+    from: new FormControl<string>('USD', [Validators.required]),
+    to: new FormControl<string>('EUR', [Validators.required]),
   });
 
   result = signal<number | null>(null);
@@ -25,8 +25,8 @@ export class ConverterComponent {
   constructor(private currencyService: CurrencyService) { }
 
   convert() {
-    const { amount, from, to } = this.form.value;
-    if (amount && from && to) {
+    if (this.form.valid) {
+    const { amount, from, to } = this.form.value;  
       this.currencyService.getExchangeRate(from, to, amount).subscribe({
         next: (res) => {
           const result = res.rates[to];
@@ -38,7 +38,7 @@ export class ConverterComponent {
         error: (err) => {
           console.error('Failed to fetch exchange rate:', err);
         },
-      });
+      });      
     }
   }
 
