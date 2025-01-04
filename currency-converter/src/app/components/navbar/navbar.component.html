@@ -9,8 +9,8 @@
 
   <!-- תפריט ניווט -->
   <nav class="links" [class.open]="menuOpen()">
-    <a mat-button routerLink="/" routerLinkActive="active">Currency Converter</a>
-    <a mat-button routerLink="/history" routerLinkActive="active">History</a>
-    <a mat-button routerLink="/chart" routerLinkActive="active">Chart</a>
+    <a mat-button routerLink="/" routerLinkActive="active" (click)="toggleMenu()">Currency Converter</a>
+    <a mat-button routerLink="/history" routerLinkActive="active" (click)="toggleMenu()">History</a>
+    <a mat-button routerLink="/chart" routerLinkActive="active" (click)="toggleMenu()">Chart</a>
   </nav>
 </mat-toolbar>
