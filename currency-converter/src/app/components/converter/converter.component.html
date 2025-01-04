@@ -2,13 +2,13 @@
     <h1>Currency Converter</h1>
     <form [formGroup]="form" (ngSubmit)="convert()" class="converter-form">
       <!-- שדה Amount -->
-      <mat-form-field appearance="fill" class="full-width">
+      <mat-form-field appearance="outline" class="full-width">
         <mat-label>Amount</mat-label>
         <input matInput formControlName="amount" id="amount" type="number" placeholder="Enter amount" />
       </mat-form-field>
   
       <!-- שדה From -->
-      <mat-form-field appearance="fill" class="half-width">
+      <mat-form-field appearance="outline" class="half-width">
         <mat-label>From</mat-label>
         <mat-select formControlName="from" id="from">
           <mat-option value="USD">USD</mat-option>
@@ -18,7 +18,7 @@
       </mat-form-field>
   
       <!-- שדה To -->
-      <mat-form-field appearance="fill" class="half-width">
+      <mat-form-field appearance="outline" class="half-width">
         <mat-label>To</mat-label>
         <mat-select formControlName="to" id="to">
           <mat-option value="USD">USD</mat-option>
@@ -28,9 +28,9 @@
       </mat-form-field>
   
       <!-- כפתור המרה -->
-      <div class="action">
-        <button mat-raised-button color="primary" type="submit" class="convert-btn">Convert</button>
-      </div>
+      <button mat-raised-button color="primary" class="convert-btn" type="submit">
+        Convert
+      </button>
     </form>
   
     <!-- תוצאה -->

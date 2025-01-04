@@ -35,3 +35,22 @@
   border-radius: 5px;
   text-align: center;
 }
+
+.convert-btn {
+  padding: 12px 20px;
+  background-color: #3f51b5;
+  color: white;
+  font-size: 18px;
+  width: 100%;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: #5c6bc0;
+  }
+}
+
+
