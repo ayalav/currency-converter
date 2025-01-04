@@ -10,7 +10,7 @@ import { Conversion } from '../models/conversion';
 export class CurrencyService {
 
   private readonly API_URL = 'https://api.frankfurter.app';
-  private readonly _history = signal<Conversion[]>([]);
+  private readonly _history = signal<Conversion[]>(this.loadHistory());
   private readonly _selectedCurrencies = signal<{ from: string; to: string }>({
     from: 'USD',
     to: 'EUR',
@@ -36,7 +36,11 @@ export class CurrencyService {
   }
 
   addConversion(conversion: Conversion): void {
-    this._history.update((currentHistory) => [...currentHistory, conversion]);
+    this._history.update((currentHistory) => {
+      const updatedHistory = [...currentHistory, conversion];
+      this.saveHistory(updatedHistory); 
+      return updatedHistory;
+    });
   }
 
   get selectedCurrencyPair(): Signal<{ from: string; to: string }> {
@@ -46,5 +50,14 @@ export class CurrencyService {
   setCurrencyPair(from: string, to: string): void {
     this._selectedCurrencies.set({ from, to });
   }  
+
+  private saveHistory(history: Conversion[]): void {
+    localStorage.setItem('conversionHistory', JSON.stringify(history));
+  }
+
+  private loadHistory(): Conversion[] {
+    const storedHistory = localStorage.getItem('conversionHistory');
+    return storedHistory ? JSON.parse(storedHistory) : [];
+  }
 }
 
