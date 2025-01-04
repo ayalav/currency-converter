@@ -1,0 +1,21 @@
+<div class="converter">
+    <h1>Currency Converter</h1>
+    <form [formGroup]="form" (ngSubmit)="convert()">
+        <input formControlName="amount" type="number" placeholder="Amount" />
+        <select formControlName="from">
+            <option value="USD">USD</option>
+            <option value="EUR">EUR</option>
+        </select>
+        <span>To</span>
+        <select formControlName="to">
+            <option value="USD">USD</option>
+            <option value="EUR">EUR</option>
+        </select>
+        <button type="submit">Convert</button>
+    </form>
+    @if (result() !== null){
+    <div>
+        <p>Converted Amount: {{ result() }}</p>
+    </div>
+    }
+</div>
