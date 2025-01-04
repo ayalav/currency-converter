@@ -25,20 +25,34 @@ export class ConverterComponent {
   constructor(private currencyService: CurrencyService) { }
 
   convert() {
-    if (this.form.valid) {
-    const { amount, from, to } = this.form.value;  
-      this.currencyService.getExchangeRate(from, to, amount).subscribe({
-        next: (res) => {
-          const result = res.rates[to];
-          if (result !== null) {
-            this.result.set(result);
-            this.updateHistory(amount, from, to, result);
-          }
-        },
-        error: (err) => {
-          console.error('Failed to fetch exchange rate:', err);
-        },
-      });      
+    if (!this.form.valid) {
+      console.error('Form is invalid');
+      return;
+    }
+  
+    const { amount, from, to } = this.form.value;
+  
+    if (!amount || !from || !to) {
+      console.error('Invalid form values:', { amount, from, to });
+      return;
+    }
+  
+    this.currencyService.getExchangeRate(from, to, amount).subscribe({
+      next: (res) => this.handleApiResponse(res, amount, from, to),
+      error: (err) => console.error('Failed to fetch exchange rate:', err)
+    });
+  }
+
+  private handleApiResponse(res: any, amount: number, from: string, to: string) {
+    if (!res.rates || !res.rates[to]) {
+      console.error(`No exchange rate available for currency: ${to}`);
+      return;
+    }
+  
+    const result = res.rates[to];
+    if (result !== null) {
+      this.result.set(result);
+      this.updateHistory(amount, from, to, result);
     }
   }
 
