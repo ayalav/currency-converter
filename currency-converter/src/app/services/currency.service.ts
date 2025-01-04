@@ -18,6 +18,15 @@ export class CurrencyService {
     return this.http.get<ExchangeRateResponse>(`${this.API_URL}/latest?amount=${amount}&from=${from}&to=${to}`);
   }
 
+  getHistoricalRates(base: string, target: string): Observable<any> {
+    const today = new Date().toISOString().split('T')[0];
+    const lastWeek = new Date();
+    lastWeek.setDate(lastWeek.getDate() - 7);
+    const lastWeekDate = lastWeek.toISOString().split('T')[0];
+  
+    return this.http.get(`${this.API_URL}/${lastWeekDate}..${today}?from=${base}&to=${target}`);
+  }  
+
   get history(): Signal<Conversion[]> {
     return this._history;
   }
