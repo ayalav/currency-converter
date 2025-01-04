@@ -52,7 +52,7 @@ export class ConverterComponent {
     const result = res.rates[to];
     if (result !== null) {
       this.result.set(result);
-      this.updateHistory(amount, from, to, result);
+      this.currencyService.addConversion({ from, to, amount, result });
     }
   }
 

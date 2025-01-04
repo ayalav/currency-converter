@@ -1,1 +1,28 @@
-<p>history works!</p>
+<div class="history">
+    <h2>Conversion History</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>From</th>
+          <th>To</th>
+          <th>Amount</th>
+          <th>Result</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (entry of currencyService.history(); track entry.from){
+            <tr>
+              <td>{{ entry.from }}</td>
+              <td>{{ entry.to }}</td>
+              <td>{{ entry.amount }}</td>
+              <td>{{ entry.result }}</td>
+            </tr>
+        }
+        @empty {
+            <tr>
+              <td colspan="4">No conversion history available.</td>
+            </tr>}
+      </tbody>
+    </table>
+  </div>
+  
