@@ -1,6 +1,7 @@
 import { Component, signal, Signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Conversion } from '../../models/conversion';
+import { CurrencyService } from '../../services/currency.service';
 
 @Component({
   selector: 'app-converter',
@@ -18,12 +19,33 @@ export class ConverterComponent {
     to: new FormControl('EUR'),
   });
 
-  result: Signal<number | null> = signal(null);
-  history: Signal<Conversion[]> = signal([]);
+  result = signal<number | null>(null);
+  history = signal<Conversion[]>([]);
 
-  constructor() {}
+  constructor(private currencyService: CurrencyService) { }
 
-  convert() {}
-  
-   
+  convert() {
+    const { amount, from, to } = this.form.value;
+    if (amount && from && to) {
+      this.currencyService.getExchangeRate(from, to, amount).subscribe({
+        next: (res) => {
+          const result = res.rates[to];
+          if (result !== null) {
+            this.result.set(result);
+            this.updateHistory(amount, from, to, result);
+          }
+        },
+        error: (err) => {
+          console.error('Failed to fetch exchange rate:', err);
+        },
+      });
+    }
+  }
+
+  private updateHistory(amount: number, from: string, to: string, result: number) {
+    this.history.update((hist) => [
+      ...hist,
+      { from, to, amount, result },
+    ]);
+  }
 }
