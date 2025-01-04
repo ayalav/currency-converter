@@ -36,6 +36,8 @@ export class ConverterComponent {
       console.error('Invalid form values:', { amount, from, to });
       return;
     }
+    
+    this.currencyService.setCurrencyPair(from, to);
   
     this.currencyService.getExchangeRate(from, to, amount).subscribe({
       next: (res) => this.handleApiResponse(res, amount, from, to),

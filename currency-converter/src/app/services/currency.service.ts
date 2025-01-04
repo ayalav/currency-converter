@@ -11,6 +11,10 @@ export class CurrencyService {
 
   private readonly API_URL = 'https://api.frankfurter.app';
   private readonly _history = signal<Conversion[]>([]);
+  private readonly _selectedCurrencies = signal<{ from: string; to: string }>({
+    from: 'USD',
+    to: 'EUR',
+  });
 
   constructor(private http: HttpClient) {}
 
@@ -34,5 +38,13 @@ export class CurrencyService {
   addConversion(conversion: Conversion): void {
     this._history.update((currentHistory) => [...currentHistory, conversion]);
   }
+
+  get selectedCurrencyPair(): Signal<{ from: string; to: string }> {
+    return this._selectedCurrencies;
+  }
+
+  setCurrencyPair(from: string, to: string): void {
+    this._selectedCurrencies.set({ from, to });
+  }  
 }
 
