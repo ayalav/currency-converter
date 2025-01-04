@@ -1,5 +1,6 @@
 import { Component, signal, Signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { Conversion } from '../../models/conversion';
 
 @Component({
   selector: 'app-converter',
@@ -18,7 +19,7 @@ export class ConverterComponent {
   });
 
   result: Signal<number | null> = signal(null);
-  history = signal<Array<{ from: string; to: string; amount: number; result: number }>>([]);
+  history: Signal<Conversion[]> = signal([]);
 
   constructor() {}
 
