@@ -1,7 +1,14 @@
 <mat-toolbar color="primary" class="navbar">
   <span class="logo">💱 Currency App</span>
   <span class="spacer"></span>
-  <nav class="links">
+
+  <!-- תפריט למסכים קטנים -->
+  <button mat-icon-button class="menu-button" (click)="toggleMenu()">
+    <mat-icon>menu</mat-icon>
+  </button>
+
+  <!-- תפריט ניווט -->
+  <nav class="links" [class.open]="menuOpen()">
     <a mat-button routerLink="/" routerLinkActive="active">Currency Converter</a>
     <a mat-button routerLink="/history" routerLinkActive="active">History</a>
     <a mat-button routerLink="/chart" routerLinkActive="active">Chart</a>
