@@ -7,22 +7,16 @@ export const routes: Routes = [
     {
         path: '',
         loadComponent: () =>
-            import('./components/converter/converter.component').then(
-                (m) => m.ConverterComponent
-            ),
+            import('./components/converter/converter.component').then((m) => m.ConverterComponent),          
     },
     {
         path: 'history',
         loadComponent: () =>
-            import('./components/history/history.component').then(
-                (m) => m.HistoryComponent
-            ),
+            import('./components/history/history.component').then((m) => m.HistoryComponent),
     },
     {
         path: 'chart',
         loadComponent: () =>
-            import('./components/chart/chart.component').then(
-                (m) => m.ChartComponent
-            ),
+            import('./components/chart/chart.component').then((m) => m.ChartComponent),
     },
 ];

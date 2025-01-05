@@ -1,47 +1,47 @@
 <div class="history">
   <h2>Conversion History</h2>
   @defer (on viewport) {
-    @if (currencyService.history().length > 0){
-  <mat-table [dataSource]="currencyService.history()">
-    <!-- עמודת From -->
-    <ng-container matColumnDef="from">
-      <mat-header-cell *matHeaderCellDef> From </mat-header-cell>
-      <mat-cell *matCellDef="let entry"> {{ entry.from }} </mat-cell>
-    </ng-container>
+    <mat-table [dataSource]="currentPageData()">
+      <!-- From Column -->
+      <ng-container matColumnDef="from">
+        <mat-header-cell *matHeaderCellDef> From </mat-header-cell>
+        <mat-cell *matCellDef="let entry"> {{ entry.from }} </mat-cell>
+      </ng-container>
 
-    <!-- עמודת To -->
-    <ng-container matColumnDef="to">
-      <mat-header-cell *matHeaderCellDef> To </mat-header-cell>
-      <mat-cell *matCellDef="let entry"> {{ entry.to }} </mat-cell>
-    </ng-container>
+      <!-- To Column -->
+      <ng-container matColumnDef="to">
+        <mat-header-cell *matHeaderCellDef> To </mat-header-cell>
+        <mat-cell *matCellDef="let entry"> {{ entry.to }} </mat-cell>
+      </ng-container>
 
-    <!-- עמודת Amount -->
-    <ng-container matColumnDef="amount">
-      <mat-header-cell *matHeaderCellDef> Amount </mat-header-cell>
-      <mat-cell *matCellDef="let entry"> {{ entry.amount }} </mat-cell>
-    </ng-container>
+      <!-- Amount Column -->
+      <ng-container matColumnDef="amount">
+        <mat-header-cell *matHeaderCellDef> Amount </mat-header-cell>
+        <mat-cell *matCellDef="let entry"> {{ entry.amount }} </mat-cell>
+      </ng-container>
 
-    <!-- עמודת Result -->
-    <ng-container matColumnDef="result">
-      <mat-header-cell *matHeaderCellDef> Result </mat-header-cell>
-      <mat-cell *matCellDef="let entry"> {{ entry.result }} </mat-cell>
-    </ng-container>
+      <!-- Result Column -->
+      <ng-container matColumnDef="result">
+        <mat-header-cell *matHeaderCellDef> Result </mat-header-cell>
+        <mat-cell *matCellDef="let entry"> {{ entry.result }} </mat-cell>
+      </ng-container>
 
-    <!-- כותרת טבלה -->
-    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <!-- Table Headers -->
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
 
-    <!-- שורת נתונים -->
-    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-  </mat-table>
-  }
-    @else {
-  <div class="no-history">
-    No conversion history available.
-  </div>
-  }
+      <!-- Table Rows -->
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+
+    <mat-paginator
+      [length]="totalRecords()"
+      [pageSize]="pageSize"
+      [pageSizeOptions]="[5, 10, 20]"
+      (page)="onPageChange($event)">
+    </mat-paginator>
   } @placeholder {
-  <p>Loading history...</p>
+    <p>Loading history...</p>
   } @error {
-  <p>Failed to load history. Please try again later.</p>
+    <p>Failed to load history. Please try again later.</p>
   }
 </div>
