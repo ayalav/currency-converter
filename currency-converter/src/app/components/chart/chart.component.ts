@@ -1,6 +1,9 @@
-import { Component, effect, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, effect, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Chart, registerables } from 'chart.js';
 import { CurrencyService } from '../../services/currency.service';
+import { formatDate } from '@angular/common';
+
+// Register required Chart.js modules
 Chart.register(...registerables);
 
 @Component({
@@ -8,24 +11,35 @@ Chart.register(...registerables);
   standalone: true,
   imports: [],
   templateUrl: './chart.component.html',
-  styleUrl: './chart.component.scss'
+  styleUrl: './chart.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ChartComponent {
 
+  @ViewChild('chartCanvas') chartCanvas!: ElementRef<HTMLCanvasElement>;
+
   constructor(private currencyService: CurrencyService) {
+    // Automatically update the chart when the selected currency pair changes
     effect(() => {
-      const pair = this.currencyService.selectedCurrencyPair(); // קריאת ערך ה-Signal
-      this.loadChart(pair.from, pair.to); // טוען את הגרף
+      const pair = this.currencyService.selectedCurrencyPair();
+      this.loadChart(pair.from, pair.to);
     });
   }
 
+  // Load historical data and create the chart
   private loadChart(base: string, target: string): void {
-    // קריאת נתונים היסטוריים והצגת גרף
     this.currencyService.getHistoricalRates(base, target).subscribe({
       next: (data) => {
         const rates = data.rates;
-        const labels = Object.keys(rates);
-        const values = labels.map((date) => rates[date][target]);
+
+        // Generate date labels in dd/MM/yyyy format
+        const originalDates = Object.keys(rates);
+        const labels = originalDates.map((date) =>
+          formatDate(new Date(date), 'dd/MM/yyyy', 'en-US')
+        );
+
+        // Extract values for the target currency
+        const values = originalDates.map((date) => rates[date]?.[target] ?? 0);
 
         this.createChart(labels, values);
       },
@@ -33,6 +47,7 @@ export class ChartComponent {
     });
   }
 
+  // Create the chart using Chart.js
   private createChart(labels: string[], values: number[]): void {
     new Chart('chartCanvas', {
       type: 'line',

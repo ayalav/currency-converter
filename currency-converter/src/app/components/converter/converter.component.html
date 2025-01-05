@@ -1,43 +1,56 @@
-<div class="converter mat-elevation-z4">
+<div class="converter">
     <h1>Currency Converter</h1>
     <form [formGroup]="form" (ngSubmit)="convert()" class="converter-form">
-      <!-- שדה Amount -->
-      <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Amount</mat-label>
-        <input matInput formControlName="amount" id="amount" type="number" placeholder="Enter amount" />
-      </mat-form-field>
-  
-      <!-- שדה From -->
-      <mat-form-field appearance="outline" class="half-width">
-        <mat-label>From</mat-label>
-        <mat-select formControlName="from" id="from">
-          <mat-option value="USD">USD</mat-option>
-          <mat-option value="EUR">EUR</mat-option>
-          <mat-option value="ILS">ILS</mat-option>
-        </mat-select>
-      </mat-form-field>
-  
-      <!-- שדה To -->
-      <mat-form-field appearance="outline" class="half-width">
-        <mat-label>To</mat-label>
-        <mat-select formControlName="to" id="to">
-          <mat-option value="USD">USD</mat-option>
-          <mat-option value="EUR">EUR</mat-option>
-          <mat-option value="ILS">ILS</mat-option>
-        </mat-select>
-      </mat-form-field>
-  
-      <!-- כפתור המרה -->
-      <button mat-raised-button color="primary" class="convert-btn" type="submit">
-        Convert
-      </button>
+        <!-- Input field for the amount -->
+        <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Amount</mat-label>
+            <input matInput formControlName="amount" id="amount" type="number" min="1" placeholder="Enter amount" />
+        </mat-form-field>      
+
+        <!-- Dropdown for the base currency -->
+        <mat-form-field appearance="outline" class="half-width">
+            <mat-label>From</mat-label>
+            <mat-select formControlName="from" id="from">
+                @for (currency of currencies(); track currency) {
+                <mat-option [value]="currency">
+                    {{ currency }}
+                </mat-option>
+                }
+                @empty {
+                <mat-option disabled>
+                    No currencies available
+                </mat-option>
+                }
+            </mat-select>
+        </mat-form-field>
+
+        <!-- Dropdown for the target currency -->
+        <mat-form-field appearance="outline" class="half-width">
+            <mat-label>To</mat-label>
+            <mat-select formControlName="to" id="to">
+                @for (currency of currencies(); track currency) {
+                <mat-option [value]="currency">
+                    {{ currency }}
+                </mat-option>
+                }
+                @empty {
+                <mat-option disabled>
+                    No currencies available
+                </mat-option>
+                }
+            </mat-select>
+        </mat-form-field>
+
+        <!-- Submit button -->
+        <button mat-raised-button color="primary" class="convert-btn" type="submit" [disabled]="!form.valid">
+            Convert
+        </button>
     </form>
-  
-    <!-- תוצאה -->
+
+    <!-- Display the conversion result -->
     @if (result() !== null){
-        <div class="result">
-            <p>Converted Amount: <span>{{ result() }}</span></p>
-        </div>
-        }
+    <div class="result">
+        <p>Converted Amount: <span>{{ result() }}</span></p>
     </div>
-  
+    }
+</div>

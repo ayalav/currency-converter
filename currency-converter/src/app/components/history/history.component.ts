@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatTableModule } from '@angular/material/table';
 import { CurrencyService } from '../../services/currency.service';
 
@@ -9,7 +9,8 @@ import { CurrencyService } from '../../services/currency.service';
     MatTableModule
   ],
   templateUrl: './history.component.html',
-  styleUrl: './history.component.scss'
+  styleUrl: './history.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush 
 })
 export class HistoryComponent {
   displayedColumns: string[] = ['from', 'to', 'amount', 'result'];

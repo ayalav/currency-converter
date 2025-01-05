@@ -1,8 +1,8 @@
 <div class="history">
   <h2>Conversion History</h2>
   @defer (on viewport) {
-  @if (currencyService.history().length > 0){
-  <mat-table [dataSource]="currencyService.history()" class="mat-elevation-z8">
+    @if (currencyService.history().length > 0){
+  <mat-table [dataSource]="currencyService.history()">
     <!-- עמודת From -->
     <ng-container matColumnDef="from">
       <mat-header-cell *matHeaderCellDef> From </mat-header-cell>
@@ -34,7 +34,7 @@
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
   </mat-table>
   }
-  @else {
+    @else {
   <div class="no-history">
     No conversion history available.
   </div>
