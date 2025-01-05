@@ -1,57 +1,68 @@
+@import '../../../styles.scss';
+
 .converter {
-  text-align: center;
-  padding: 20px;
-  margin: 20px auto;
-  width: 80%;
-  background: #fff;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.converter-form {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-}
-
-.full-width {
-  flex: 1 1 100%;
-}
-
-.half-width {
-  flex: 1 1 calc(50% - 16px);
-}
-
-.action {
-  flex: 1 1 100%;
-  display: flex;
-  justify-content: center;
-}
-
-.result {
-  margin-top: 20px;
-  padding: 10px;
-  background-color: #e8f5e9;
-  border: 1px solid #4caf50;
-  border-radius: 5px;
-  text-align: center;
-}
-
-.convert-btn {
-  padding: 12px 20px;
-  background-color: #3f51b5;
-  color: white;
-  font-size: 18px;
-  width: 100%;
-  font-weight: bold;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s;
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 24px;
+  background-color: $background-color;
+  border-radius: $border-radius;
+  box-shadow: $box-shadow;
+  transition: $transition;
 
   &:hover {
-    background-color: #5c6bc0;
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.3);
+  }
+
+  h2 {
+    font-size: 2rem;
+    margin-bottom: 24px;
+    color: $primary-color;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  .converter-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    align-items: center;
+  }
+
+  mat-form-field {
+    width: 100%;
+    flex: 1 1 100%;
+
+    &.half-width {
+      flex: 1 1 calc(50% - 16px);
+    }
+  }
+
+  .convert-btn {
+    width: 100%;
+    padding: 12px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #ffffff;
+    background-color: $primary-color;
+    border: none;
+    border-radius: $border-radius;
+    cursor: pointer;
+    transition: $transition;
+
+    &:hover {
+      background-color: $primary-hover;
+    }
+  }
+
+  .result {
+    margin-top: 24px;
+    padding: 16px;
+    background-color: $result-bg;
+    border: 1px solid $result-border;
+    border-radius: $border-radius;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-align: center;
+    color: $text-color;
   }
 }
-
-

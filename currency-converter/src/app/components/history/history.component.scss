@@ -1,26 +1,84 @@
+@import '../../../styles.scss';
+
 .history {
-  text-align: center;
-  padding: 20px;
-  margin: 20px auto;
-  width: 80%;
-  background: #fff;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 24px;
+  background-color: $background-color;
+  border-radius: $border-radius;
+  box-shadow: $box-shadow;
+  transition: $transition;
+
+  &:hover {
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.3);
   }
-  
-  table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  th, td {
-    border: 1px solid #ddd;
-    padding: 8px;
+
+  h2 {
+    font-size: 2rem;
+    margin-bottom: 24px;
+    color: $primary-color;
+    font-weight: bold;
     text-align: center;
   }
-  
-  th {
-    background-color: #f4f4f4;
-    font-weight: bold;
+
+  mat-table {
+    width: 100%;
+    border-radius: $border-radius;
+    overflow: hidden;
+    box-shadow: $box-shadow;
+
+    mat-header-row {
+      background-color: $primary-color;
+      color: #ffffff;
+      font-size: 1rem;
+      text-align: left;
+    }
+
+    mat-header-cell {
+      padding: 12px;
+      font-weight: bold;
+      text-transform: capitalize;
+    }
+
+    mat-row {      
+        background-color: $secondary-color;
+      
+      &:hover {
+        background-color: lighten($secondary-color, 10%);
+      }
+    }
+
+    mat-cell {
+      padding: 12px;
+      font-size: 1rem;
+      color: $text-color;
+    }
   }
-  
+
+  mat-paginator {
+    margin-top: 14px;
+    background-color: $primary-color;
+    border-radius: $border-radius;
+    box-shadow: $box-shadow;
+
+    .mat-paginator-range-label,
+    .mat-paginator-page-size-label {
+      color: $text-color;
+      font-size: 1rem;
+    }
+
+    .mat-select-trigger {
+      color: $text-color;
+      font-size: 1rem;
+    }
+
+    button {
+      color: $primary-color;
+      font-size: 1rem;
+
+      &:hover {
+        background-color: $secondary-color;
+      }
+    }
+  }
+}
