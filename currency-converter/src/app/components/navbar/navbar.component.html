@@ -2,12 +2,12 @@
   <span class="logo">💱 Currency App</span>
   <span class="spacer"></span>
 
-  <!-- תפריט למסכים קטנים -->
+  <!-- Menu button for small screens -->
   <button mat-icon-button class="menu-button" (click)="toggleMenu()">
     <mat-icon>menu</mat-icon>
   </button>
 
-  <!-- תפריט ניווט -->
+  <!-- Navigation menu -->
   <nav class="links" [class.open]="menuOpen()">
     <a mat-button routerLink="/" routerLinkActive="active" (click)="toggleMenu()">Currency Converter</a>
     <a mat-button routerLink="/history" routerLinkActive="active" (click)="toggleMenu()">History</a>

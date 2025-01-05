@@ -16,8 +16,6 @@ Chart.register(...registerables);
 })
 export class ChartComponent {
 
-  @ViewChild('chartCanvas') chartCanvas!: ElementRef<HTMLCanvasElement>;
-
   constructor(private currencyService: CurrencyService) {
     // Automatically update the chart when the selected currency pair changes
     effect(() => {
