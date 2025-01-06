@@ -5,6 +5,7 @@ import { CurrencyService } from '../../services/currency.service';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
+import { ExchangeRateResponse } from '../../models/exchangeRate';
 
 @Component({
   selector: 'app-converter',
@@ -62,7 +63,7 @@ export class ConverterComponent implements OnInit {
   }
 
 // Handle the API response and update the result
-  private handleApiResponse(res: any, amount: number, from: string, to: string) {
+  private handleApiResponse(res: ExchangeRateResponse, amount: number, from: string, to: string) {
     if (!res.rates || !res.rates[to]) {
       console.error(`No exchange rate available for currency: ${to}`);
       return;
