@@ -1,6 +1,5 @@
 <div class="history">
   <h2>Conversion History</h2>
-  @defer (on viewport) {
     <mat-table [dataSource]="currentPageData()">
       <!-- From Column -->
       <ng-container matColumnDef="from">
@@ -38,10 +37,5 @@
       [pageSize]="pageSize"
       [pageSizeOptions]="[5, 10, 20]"
       (page)="onPageChange($event)">
-    </mat-paginator>
-  } @placeholder {
-    <p>Loading history...</p>
-  } @error {
-    <p>Failed to load history. Please try again later.</p>
-  }
+    </mat-paginator>  
 </div>

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, effect, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, effect, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Chart, registerables } from 'chart.js';
 import { CurrencyService } from '../../services/currency.service';
 import { formatDate } from '@angular/common';
@@ -14,7 +14,8 @@ Chart.register(...registerables);
   styleUrl: './chart.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ChartComponent {
+export class ChartComponent implements OnDestroy {
+  chart: Chart | null = null;
 
   constructor(private currencyService: CurrencyService) {
     // Automatically update the chart when the selected currency pair changes
@@ -47,7 +48,10 @@ export class ChartComponent {
 
   // Create the chart using Chart.js
   private createChart(labels: string[], values: number[]): void {
-    new Chart('chartCanvas', {
+    if (this.chart) {
+      this.chart.destroy();
+    }
+    this.chart = new Chart('chartCanvas', {
       type: 'line',
       data: {
         labels,
@@ -65,5 +69,12 @@ export class ChartComponent {
         maintainAspectRatio: false,
       },
     });
+  }
+
+  ngOnDestroy(): void {
+    if (this.chart) {
+      this.chart.destroy();
+      this.chart = null;
+    }
   }
 }

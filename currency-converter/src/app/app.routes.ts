@@ -6,8 +6,7 @@ import { ChartComponent } from './components/chart/chart.component';
 export const routes: Routes = [
     {
         path: '',
-        loadComponent: () =>
-            import('./components/converter/converter.component').then((m) => m.ConverterComponent),          
+        component: ConverterComponent
     },
     {
         path: 'history',
