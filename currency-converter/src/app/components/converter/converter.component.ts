@@ -9,7 +9,6 @@ import { ExchangeRateResponse } from '../../models/exchangeRate';
 
 @Component({
   selector: 'app-converter',
-  standalone: true,
   imports: [
     ReactiveFormsModule,
     MatFormFieldModule,

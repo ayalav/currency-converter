@@ -6,7 +6,6 @@ import { Conversion } from '../../models/conversion';
 
 @Component({
   selector: 'app-history',
-  standalone: true,
   imports: [
     MatTableModule,
     MatPaginatorModule
